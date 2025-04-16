@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algo Trader - Algorithmic Trading Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .chart-container {
+      position: relative;
+      height: 400px;
+      width: 100%;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+    }
+    .card {
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <div class="gradient-bg text-white">
+    <header class="container mx-auto px-4 py-6">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Algo Trader</h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li><a href="#" class="hover:text-primary-200 transition-colors">Home</a></li>
+            <li><a href="#strategies" class="hover:text-primary-200 transition-colors">Strategies</a></li>
+            <li><a href="#backtest" class="hover:text-primary-200 transition-colors">Backtest</a></li>
+            <li><a href="https://github.com" target="_blank" class="hover:text-primary-200 transition-colors">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl font-bold mb-6">Algorithmic Trading Made Simple</h2>
+          <p class="text-xl mb-8">Develop, backtest, and analyze trading strategies with our powerful platform.</p>
+          <div class="flex space-x-4">
+            <a href="#backtest" class="bg-white text-primary-700 px-6 py-3 rounded-lg font-medium hover:bg-primary-50 transition-colors">Start Backtesting</a>
+            <a href="#strategies" class="border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary-700 transition-colors">Explore Strategies</a>
+          </div>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Trading chart" class="rounded-xl shadow-lg w-full">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section id="strategies" class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12">Trading Strategies</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="card p-6 hover:shadow-lg transition-shadow">
+        <div class="h-48 mb-4 overflow-hidden rounded-lg">
+          <img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Moving Average" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Moving Average Crossover</h3>
+        <p class="text-gray-600 mb-4">A trend-following strategy that generates signals when a short-term moving average crosses a long-term moving average.</p>
+        <button class="strategy-btn" data-strategy="ma-cross" data-name="Moving Average Crossover">
+          <span class="text-primary-600 font-medium hover:text-primary-800 transition-colors">Select Strategy →</span>
+        </button>
+      </div>
+      
+      <div class="card p-6 hover:shadow-lg transition-shadow">
+        <div class="h-48 mb-4 overflow-hidden rounded-lg">
+          <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="RSI" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-bold mb-2">RSI Mean Reversion</h3>
+        <p class="text-gray-600 mb-4">A mean-reversion strategy that buys when RSI is oversold and sells when RSI is overbought.</p>
+        <button class="strategy-btn" data-strategy="rsi" data-name="RSI Mean Reversion">
+          <span class="text-primary-600 font-medium hover:text-primary-800 transition-colors">Select Strategy →</span>
+        </button>
+      </div>
+      
+      <div class="card p-6 hover:shadow-lg transition-shadow">
+        <div class="h-48 mb-4 overflow-hidden rounded-lg">
+          <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Custom" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Custom Strategy</h3>
+        <p class="text-gray-600 mb-4">Create your own custom strategy by extending the base strategy class and implementing your logic.</p>
+        <a href="https://github.com" target="_blank" class="text-primary-600 font-medium hover:text-primary-800 transition-colors">Learn More →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="backtest" class="bg-gray-100 py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Backtest Your Strategy</h2>
+      
+      <div class="card p-8 max-w-4xl mx-auto">
+        <form id="backtest-form" class="mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="ticker" class="block text-gray-700 font-medium mb-2">Ticker Symbol</label>
+              <input type="text" id="ticker" name="ticker" value="AAPL" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+            </div>
+            
+            <div>
+              <label for="strategy" class="block text-gray-700 font-medium mb-2">Strategy</label>
+              <select id="strategy" name="strategy" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                <option value="ma-cross">Moving Average Crossover</option>
+                <option value="rsi">RSI Mean Reversion</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="start-date" class="block text-gray-700 font-medium mb-2">Start Date</label>
+              <input type="date" id="start-date" name="startDate" value="2020-01-01" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+            </div>
+            
+            <div>
+              <label for="end-date" class="block text-gray-700 font-medium mb-2">End Date</label>
+              <input type="date" id="end-date" name="endDate" value="2023-01-01" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+            </div>
+          </div>
+          
+          <div id="strategy-params" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Strategy-specific parameters will be inserted here -->
+          </div>
+          
+          <button type="submit" class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors">Run Backtest</button>
+        </form>
+        
+        <div id="backtest-results" class="hidden">
+          <h3 class="text-xl font-bold mb-4">Backtest Results</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="text-gray-500 text-sm">Total Return</p>
+              <p id="total-return" class="text-2xl font-bold">0.00%</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="text-gray-500 text-sm">Sharpe Ratio</p>
+              <p id="sharpe-ratio" class="text-2xl font-bold">0.00</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="text-gray-500 text-sm">Max Drawdown</p>
+              <p id="max-drawdown" class="text-2xl font-bold">0.00%</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="text-gray-500 text-sm">Win Rate</p>
+              <p id="win-rate" class="text-2xl font-bold">0.00%</p>
+            </div>
+          </div>
+          
+          <div class="chart-container mb-6">
+            <canvas id="equity-chart"></canvas>
+          </div>
+          
+          <h4 class="text-lg font-bold mb-2">Recent Trades</h4>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+              <thead>
+                <tr>
+                  <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                  <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                  <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">P&L</th>
+                </tr>
+              </thead>
+              <tbody id="trades-table">
+                <!-- Trade data will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div id="loading" class="hidden text-center py-8">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-600"></div>
+          <p class="mt-2 text-gray-600">Running backtest...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Algo Trader</h3>
+          <p class="text-gray-400">A modular algorithmic trading system for backtesting and strategy development.</p>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold mb-4">Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#strategies" class="text-gray-400 hover:text-white transition-colors">Strategies</a></li>
+            <li><a href="#backtest" class="text-gray-400 hover:text-white transition-colors">Backtest</a></li>
+            <li><a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold mb-4">Disclaimer</h3>
+          <p class="text-gray-400">This software is for educational purposes only. Trading financial instruments involves significant risk of loss.</p>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 Algo Trader. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import Chart from 'chart.js/auto';
+    
+    // Strategy parameters
+    const strategyParams = {
+      'ma-cross': [
+        { id: 'short-period', name: 'shortPeriod', label: 'Short MA Period', type: 'number', value: 10 },
+        { id: 'long-period', name: 'longPeriod', label: 'Long MA Period', type: 'number', value: 50 }
+      ],
+      'rsi': [
+        { id: 'rsi-period', name: 'period', label: 'RSI Period', type: 'number', value: 14 },
+        { id: 'overbought', name: 'overbought', label: 'Overbought Level', type: 'number', value: 70 },
+        { id: 'oversold', name: 'oversold', label: 'Oversold Level', type: 'number', value: 30 }
+      ]
+    };
+    
+    // Chart instance
+    let equityChart;
+    
+    // DOM elements
+    const strategyBtns = document.querySelectorAll('.strategy-btn');
+    const strategySelect = document.getElementById('strategy');
+    const strategyParamsContainer = document.getElementById('strategy-params');
+    const backtestForm = document.getElementById('backtest-form');
+    const backtestResults = document.getElementById('backtest-results');
+    const loadingIndicator = document.getElementById('loading');
+    
+    // Initialize strategy parameters
+    function updateStrategyParams() {
+      const strategy = strategySelect.value;
+      const params = strategyParams[strategy];
+      
+      strategyParamsContainer.innerHTML = '';
+      
+      params.forEach(param => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <label for="${param.id}" class="block text-gray-700 font-medium mb-2">${param.label}</label>
+          <input type="${param.type}" id="${param.id}" name="${param.name}" value="${param.value}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+        `;
+        strategyParamsContainer.appendChild(div);
+      });
+    }
+    
+    // Initialize chart
+    function initChart() {
+      const ctx = document.getElementById('equity-chart').getContext('2d');
+      
+      equityChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: 'Portfolio Equity',
+              data: [],
+              borderColor: '#0ea5e9',
+              backgroundColor: 'rgba(14, 165, 233, 0.1)',
+              fill: true,
+              tension: 0.1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            },
+            legend: {
+              position: 'top'
+            },
+            title: {
+              display: true,
+              text: 'Portfolio Equity Curve'
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Equity ($)'
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Update chart with backtest results
+    function updateChart(equity) {
+      // Sample the equity curve to avoid too many points
+      const sampleRate = Math.max(1, Math.floor(equity.length / 100));
+      const sampledEquity = equity.filter((_, i) => i % sampleRate === 0);
+      
+      equityChart.data.labels = sampledEquity.map(point => point.date);
+      equityChart.data.datasets[0].data = sampledEquity.map(point => point.equity);
+      equityChart.update();
+    }
+    
+    // Update trades table
+    function updateTradesTable(trades) {
+      const tradesTable = document.getElementById('trades-table');
+      tradesTable.innerHTML = '';
+      
+      // Show the last 10 trades
+      const lastTrades = trades.slice(-10);
+      
+      lastTrades.forEach(trade => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="py-2 px-4 border-b border-gray-200">${trade.date}</td>
+          <td class="py-2 px-4 border-b border-gray-200 ${trade.type === 'buy' ? 'text-green-600' : 'text-red-600'}">${trade.type.toUpperCase()}</td>
+          <td class="py-2 px-4 border-b border-gray-200">$${trade.price.toFixed(2)}</td>
+          <td class="py-2 px-4 border-b border-gray-200 ${trade.pnl > 0 ? 'text-green-600' : trade.pnl < 0 ? 'text-red-600' : ''}">${trade.pnl ? '$' + trade.pnl.toFixed(2) : 'N/A'}</td>
+        `;
+        tradesTable.appendChild(row);
+      });
+    }
+    
+    // Update metrics display
+    function updateMetrics(metrics) {
+      document.getElementById('total-return').textContent = (metrics.totalReturn * 100).toFixed(2) + '%';
+      document.getElementById('sharpe-ratio').textContent = metrics.sharpeRatio.toFixed(2);
+      document.getElementById('max-drawdown').textContent = (metrics.maxDrawdown * 100).toFixed(2) + '%';
+      document.getElementById('win-rate').textContent = (metrics.winRate * 100).toFixed(2) + '%';
+      
+      // Color code the metrics
+      document.getElementById('total-return').className = metrics.totalReturn >= 0 ? 'text-2xl font-bold text-green-600' : 'text-2xl font-bold text-red-600';
+      document.getElementById('sharpe-ratio').className = metrics.sharpeRatio >= 1 ? 'text-2xl font-bold text-green-600' : 'text-2xl font-bold text-yellow-600';
+      document.getElementById('max-drawdown').className = metrics.maxDrawdown <= 0.2 ? 'text-2xl font-bold text-green-600' : 'text-2xl font-bold text-red-600';
+      document.getElementById('win-rate').className = metrics.winRate >= 0.5 ? 'text-2xl font-bold text-green-600' : 'text-2xl font-bold text-yellow-600';
+    }
+    
+    // Run backtest
+    async function runBacktest(formData) {
+      try {
+        // Show loading indicator
+        backtestResults.classList.add('hidden');
+        loadingIndicator.classList.remove('hidden');
+        
+        // Mock API call (in a real app, this would call the backend)
+        // For demo purposes, we'll simulate a delay and return mock data
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Generate mock results
+        const results = generateMockResults(formData);
+        
+        // Update UI with results
+        updateMetrics(results.metrics);
+        updateChart(results.results.equity);
+        updateTradesTable(results.results.trades);
+        
+        // Show results
+        loadingIndicator.classList.add('hidden');
+        backtestResults.classList.remove('hidden');
+        
+        return results;
+      } catch (error) {
+        console.error('Error running backtest:', error);
+        loadingIndicator.classList.add('hidden');
+        alert('Error running backtest: ' + error.message);
+      }
+    }
+    
+    // Generate mock backtest results for demo purposes
+    function generateMockResults(formData) {
+      const strategy = formData.get('strategy');
+      const startDate = new Date(formData.get('startDate'));
+      const endDate = new Date(formData.get('endDate'));
+      
+      // Generate dates between start and end
+      const dates = [];
+      let currentDate = new Date(startDate);
+      while (currentDate <= endDate) {
+        if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) { // Skip weekends
+          dates.push(new Date(currentDate));
+        }
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      
+      // Generate equity curve
+      const initialCapital = 10000;
+      let equity = initialCapital;
+      const equityCurve = [];
+      const trades = [];
+      
+      // Different performance characteristics based on strategy
+      const performanceMultiplier = strategy === 'ma-cross' ? 1.2 : 0.8;
+      const volatility = strategy === 'ma-cross' ? 0.01 : 0.015;
+      const tradeFrequency = strategy === 'ma-cross' ? 10 : 5; // Days between trades
+      
+      dates.forEach((date, i) => {
+        // Add some randomness to equity
+        const dailyReturn = (Math.random() - 0.45) * volatility * performanceMultiplier;
+        equity *= (1 + dailyReturn);
+        
+        equityCurve.push({
+          date: date.toISOString().split('T')[0],
+          equity: equity,
+          cash: equity * 0.2, // Assume 80% invested
+          position: 1 // Assume long position
+        });
+        
+        // Generate some trades
+        if (i % tradeFrequency === 0 && i > 0) {
+          const isBuy = Math.random() > 0.5;
+          const price = equity / 100; // Mock price
+          const size = Math.floor(1000 / price);
+          const pnl = isBuy ? null : (Math.random() - 0.4) * 200; // Only sell trades have P&L
+          
+          trades.push({
+            type: isBuy ? 'buy' : 'sell',
+            date: date.toISOString().split('T')[0],
+            price: price,
+            size: size,
+            pnl: pnl,
+            cash: equity * 0.2
+          });
+        }
+      });
+      
+      // Calculate metrics
+      const totalReturn = (equity / initialCapital) - 1;
+      const returns = equityCurve.slice(1).map((point, i) => point.equity / equityCurve[i].equity - 1);
+      const meanReturn = returns.reduce((sum, ret) => sum + ret, 0) / returns.length;
+      const stdReturn = Math.sqrt(returns.reduce((sum, ret) => sum + Math.pow(ret - meanReturn, 2), 0) / returns.length);
+      const sharpeRatio = meanReturn / stdReturn * Math.sqrt(252);
+      
+      // Calculate max drawdown
+      let peak = initialCapital;
+      let maxDrawdown = 0;
+      
+      equityCurve.forEach(point => {
+        if (point.equity > peak) {
+          peak = point.equity;
+        }
+        
+        const drawdown = (peak - point.equity) / peak;
+        maxDrawdown = Math.max(maxDrawdown, drawdown);
+      });
+      
+      // Calculate win rate
+      const winningTrades = trades.filter(trade => trade.pnl > 0);
+      const winRate = winningTrades.length / trades.filter(trade => trade.pnl !== null).length;
+      
+      return {
+        results: {
+          strategy: strategy,
+          params: Object.fromEntries(formData),
+          initialCapital: initialCapital,
+          equity: equityCurve,
+          trades: trades,
+          finalCapital: equity
+        },
+        metrics: {
+          totalReturn: totalReturn,
+          annualizedReturn: Math.pow(1 + totalReturn, 252 / dates.length) - 1,
+          sharpeRatio: sharpeRatio,
+          maxDrawdown: maxDrawdown,
+          winRate: winRate,
+          profitFactor: 1.5,
+          averageWin: 150,
+          averageLoss: 100
+        }
+      };
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize strategy parameters
+      updateStrategyParams();
+      
+      // Initialize chart
+      initChart();
+      
+      // Strategy selection from cards
+      strategyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const strategy = btn.dataset.strategy;
+          strategySelect.value = strategy;
+          updateStrategyParams();
+          
+          // Scroll to backtest section
+          document.getElementById('backtest').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+      
+      // Strategy selection change
+      strategySelect.addEventListener('change', updateStrategyParams);
+      
+      // Form submission
+      backtestForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(backtestForm);
+        await runBacktest(formData);
+      });
+    });
+  </script>
+</body>
+</html>
